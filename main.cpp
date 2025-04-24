@@ -3,6 +3,7 @@
 
 #include "constants.cpp"
 #include "food.cpp"
+#include "snake.cpp"
 
 using namespace std;
 
@@ -15,6 +16,7 @@ int main() {
 
     // Game setup
     Food food = Food();
+    Snake snake = Snake();
 
     // Gameloop
     while (!WindowShouldClose()) {
@@ -22,6 +24,7 @@ int main() {
 
         ClearBackground(LGREEN);
         food.draw();
+        snake.draw();
 
         EndDrawing();
     }
