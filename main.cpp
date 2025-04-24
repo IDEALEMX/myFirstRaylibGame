@@ -35,6 +35,7 @@ int main() {
         BeginDrawing();
         
         // Computing
+        snake.updateDirection();
         if(shouldTriggerUpdate(interval)) {
             snake.update();
         }

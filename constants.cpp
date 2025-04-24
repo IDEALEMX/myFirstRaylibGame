@@ -12,3 +12,9 @@ const int screenSize = cellSize * cellCount;
 
 // Interval for updating the game state
 const double interval = 0.2;
+
+// Movement vectors
+const Vector2 upVector = {0, -1};
+const Vector2 downVector = {0, 1};
+const Vector2 rightVector = {1, 0};
+const Vector2 leftVector = {-1, 0};

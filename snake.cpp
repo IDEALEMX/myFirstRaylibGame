@@ -69,7 +69,7 @@ public:
             DrawTexture(faceLeftTexture, body[0].x * cellSize, body[0].y * cellSize, WHITE);
         }else if (yDifference == 1) {
             DrawTexture(faceDownTexture, body[0].x * cellSize, body[0].y * cellSize, WHITE);
-        } else if (xDifference == -1) {
+        } else if (yDifference == -1) {
             DrawTexture(faceUpTexture, body[0].x * cellSize, body[0].y * cellSize, WHITE);
         }
         
@@ -80,11 +80,44 @@ public:
             DrawTexture(bodyTexture, x * cellSize, y * cellSize, WHITE);
         }
     }
+    
+    /*
+     * Updates the direction of the snake
+     * supports arrowKey, wasd & vim movement
+     */
+
+    void updateDirection() {
+        int keyPressed = GetKeyPressed();
+        switch(keyPressed) {
+            case KEY_UP: case  KEY_W: case KEY_K:
+                if (direction != downVector) {
+                    direction = upVector;
+                }
+                break;
+
+            case KEY_DOWN: case KEY_S: case KEY_J:
+                if (direction != upVector) {
+                    direction = downVector;
+                }
+                break;
+
+            case KEY_RIGHT: case KEY_D: case KEY_L:
+                if (direction != leftVector) {
+                    direction = rightVector;
+                }
+                break;
+
+            case KEY_LEFT: case KEY_A: case KEY_H:
+                if (direction != rightVector) {
+                    direction = leftVector;
+                }
+                break;
+        }
+    }
 
      // Makes the snake move foward by poping the tail and adding a new head
     void update() {
         body.pop_back();
         body.push_front(Vector2Add(body[0], direction));
     }
-
 };
