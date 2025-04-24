@@ -2,23 +2,33 @@
 #include <iostream>
 using namespace std;
 
-int main () {
+// Game colors
+const Color LGREEN = {173, 204, 96, 255};
+const Color DGREEN = {43, 51, 24, 255};
+
+// Defining grid system
+const int cellSize = 30;
+const int cellCount = 25;
+const int screenSize = cellSize * cellCount;
+
+int main() {
 
     // init app
-    cout << "Starting the game...";
-    InitWindow (600, 400, "test");
+    cout << "Starting the game..." << endl;
+    InitWindow(screenSize, screenSize, "test");
+    SetTargetFPS(60);
 
     // gameloop
-    while (!WindowShouldClose ()) {
-        BeginDrawing ();
+    while (!WindowShouldClose()) {
+        BeginDrawing();
 
-        ClearBackground (SKYBLUE);
+        ClearBackground(LGREEN);
 
-        EndDrawing ();
+        EndDrawing();
     }
 
     // close app
-    CloseWindow ();
+    CloseWindow();
 
     return 0;
 }
