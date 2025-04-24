@@ -7,6 +7,18 @@
 
 using namespace std;
 
+// Time passed since last game update
+double lastUpdateTime = 0;
+
+bool shouldTriggerUpdate(double updateInterval) { 
+    double currentTime = GetTime();
+    if (currentTime - lastUpdateTime >= updateInterval) {
+        lastUpdateTime = currentTime;
+        return true;
+    }
+    return false;
+}
+
 int main() {
 
     // Init app
@@ -21,7 +33,13 @@ int main() {
     // Gameloop
     while (!WindowShouldClose()) {
         BeginDrawing();
+        
+        // Computing
+        if(shouldTriggerUpdate(interval)) {
+            snake.update();
+        }
 
+        // Drawing
         ClearBackground(LGREEN);
         food.draw();
         snake.draw();

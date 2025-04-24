@@ -1,4 +1,5 @@
 #include <raylib.h>
+#include <raymath.h>
 #include <deque>
 
 #include "constants.cpp"
@@ -15,8 +16,12 @@ public:
         Vector2{4, 9},
     };
 
+    // Snake textures
     Texture2D bodyTexture, faceUpTexture, faceDownTexture,
         faceRightTexture, faceLeftTexture;
+
+    // Direction vector
+    Vector2 direction = {0, 1};
 
     Snake() {
         // Loads images and textures of the snake's body & head
@@ -74,6 +79,12 @@ public:
             int y = body[i].y;
             DrawTexture(bodyTexture, x * cellSize, y * cellSize, WHITE);
         }
+    }
+
+     // Makes the snake move foward by poping the tail and adding a new head
+    void update() {
+        body.pop_back();
+        body.push_front(Vector2Add(body[0], direction));
     }
 
 };

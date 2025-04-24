@@ -9,3 +9,6 @@ const Color DGREEN = {43, 51, 24, 255};
 const int cellSize = 30;
 const int cellCount = 25;
 const int screenSize = cellSize * cellCount;
+
+// Interval for updating the game state
+const double interval = 0.2;
