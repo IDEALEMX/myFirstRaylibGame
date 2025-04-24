@@ -4,7 +4,7 @@
 
 class Food {
 public:
-    Vector2 position = {4, 7};
+    Vector2 position = generateRandomPosition(); 
     Texture2D texture;
 
     Food() {
@@ -18,20 +18,16 @@ public:
     }
 
     void draw() {
-        /*
-        DrawRectangle(
-                position.x * cellSize, 
-                position.y * cellSize, 
-                cellSize,
-                cellSize, 
-                DGREEN);
-        */
-
         DrawTexture(texture,
                     position.x * cellSize,
                     position.y * cellSize,
                     WHITE);
-            
+    }
+
+    Vector2 generateRandomPosition() {
+        float x = GetRandomValue(0, cellCount - 1);
+        float y = GetRandomValue(0, cellCount - 1);
+        return Vector2 {x, y};
     }
 
 };
