@@ -17,6 +17,15 @@ int main() {
     while (!WindowShouldClose()) {
         BeginDrawing();
 
+        // Handle player death
+        if(game.snake.isDead) {
+            double currentTime = GetTime();
+            if (currentTime - game.snake.timeOfDeath >= resetInterval) {
+                game.resetGame();
+            }
+            continue;
+        }
+
         // Computing
         game.handleUserInput();
         game.snake.updateDirection(game.lastDirectionKeyPressed);
@@ -30,14 +39,13 @@ int main() {
             }
             
             game.snake.checkCollitions();
+        }
 
+        if (game.snake.isDead) {
+            continue;
         }
 
         // Drawing
-        if (game.snake.isDead) {
-            game.resetGame();
-        }
-
         ClearBackground(LGREEN);
         game.food.draw();
         game.snake.draw();

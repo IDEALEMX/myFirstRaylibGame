@@ -26,6 +26,8 @@ public:
     // Direction vector
     Vector2 direction = {0, 1};
 
+    // Death related variables
+    double timeOfDeath = 0;
     bool isDead = false;
 
     Snake() {
@@ -146,12 +148,14 @@ public:
         // check for edge collisions
         if (head.x < 0 || head.x > cellCount - 1 || head.y < 0 || head.y > cellCount - 1) { 
             isDead = true;
+            timeOfDeath = GetTime();
             return;
         }
 
         // check for self collisions
         if (positionInSnake(head, false)) {
             isDead = true;
+            timeOfDeath = GetTime();
             return;
         }
     }

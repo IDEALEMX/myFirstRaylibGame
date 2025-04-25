@@ -14,7 +14,7 @@ const int screenSize = cellSize * cellCount;
 
 // Interval for updating the game state
 const double updateInterval = 0.2;
-const double movementInterval = 0.1;
+const double resetInterval = 2;
 
 // Movement vectors
 const Vector2 upVector = {0, -1};
