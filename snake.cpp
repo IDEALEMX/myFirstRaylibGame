@@ -5,6 +5,8 @@
 #include "constants.cpp"
 #pragma once
 
+#define head body[0]
+
 using namespace std;
 
 class Snake {
@@ -23,6 +25,8 @@ public:
 
     // Direction vector
     Vector2 direction = {0, 1};
+
+    bool isDead = false;
 
     Snake() {
         // Loads images and textures of the snake's body & head
@@ -61,17 +65,17 @@ public:
          * to the next (1), chooses which texture to use
          */
 
-        int xDifference = body[0].x - body[1].x;
-        int yDifference = body[0].y - body[1].y;
+        int xDifference = head.x - body[1].x;
+        int yDifference = head.y - body[1].y;
 
         if (xDifference == 1) {
-            DrawTexture(faceRightTexture, body[0].x * cellSize, body[0].y * cellSize, WHITE);
+            DrawTexture(faceRightTexture, head.x * cellSize, head.y * cellSize, WHITE);
         } else if (xDifference == -1) {
-            DrawTexture(faceLeftTexture, body[0].x * cellSize, body[0].y * cellSize, WHITE);
+            DrawTexture(faceLeftTexture, head.x * cellSize, head.y * cellSize, WHITE);
         }else if (yDifference == 1) {
-            DrawTexture(faceDownTexture, body[0].x * cellSize, body[0].y * cellSize, WHITE);
+            DrawTexture(faceDownTexture, head.x * cellSize, head.y * cellSize, WHITE);
         } else if (yDifference == -1) {
-            DrawTexture(faceUpTexture, body[0].x * cellSize, body[0].y * cellSize, WHITE);
+            DrawTexture(faceUpTexture, head.x * cellSize, head.y * cellSize, WHITE);
         }
         
         // Draws the rest of the body
@@ -120,12 +124,13 @@ public:
      // Makes the snake move foward by poping the tail and adding a new head
     void update() {
         body.pop_back();
-        body.push_front(Vector2Add(body[0], direction));
+        body.push_front(Vector2Add(head, direction));
     }
 
     // Checks if a given Vector2 position is inside the snake
-    bool positionInSnake(Vector2 position) {
-        for (int i = 0; i < body.size(); i++)  {
+    bool positionInSnake(Vector2 position, bool checkHead) {
+        int start = checkHead? 0: 1;
+        for (int i = start; i < body.size(); i++)  {
             if (body[i] == position) {
                 return true;
             }
@@ -134,6 +139,20 @@ public:
     }
 
     void growBody() {
-        body.push_front(Vector2Add(body[0], direction));
+        body.push_front(Vector2Add(head, direction));
+    }
+    
+    void checkCollitions() {
+        // check for edge collisions
+        if (head.x < 0 || head.x > cellCount - 1 || head.y < 0 || head.y > cellCount - 1) { 
+            isDead = true;
+            return;
+        }
+
+        // check for self collisions
+        if (positionInSnake(head, false)) {
+            isDead = true;
+            return;
+        }
     }
 };

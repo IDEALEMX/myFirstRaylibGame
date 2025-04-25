@@ -49,11 +49,18 @@ public:
         if(snake.body[0] == food.position) {
             do {
                 newPosition = food.generateRandomPosition();
-            } while (snake.positionInSnake(newPosition));
+            } while (snake.positionInSnake(newPosition, true));
             food.position = newPosition;
             return true;
         }
         return false;
+    }
+
+    void resetGame() {
+        snake.body = { Vector2{6, 9}, Vector2{5, 9}, Vector2{4, 9}};
+        snake.isDead = false;
+        snake.direction = {0, 1};
+        lastDirectionKeyPressed = KEY_RIGHT;
     }
 
 };

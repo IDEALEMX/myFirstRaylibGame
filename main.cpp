@@ -22,15 +22,22 @@ int main() {
         game.snake.updateDirection(game.lastDirectionKeyPressed);
         if(game.shouldTriggerUpdate(updateInterval)) {
             bool ateFood = game.handleSnakeFoodCollition();
-            
+
             if (ateFood) {
                 game.snake.growBody();
             } else {
                 game.snake.update();
             }
+            
+            game.snake.checkCollitions();
+
         }
 
         // Drawing
+        if (game.snake.isDead) {
+            game.resetGame();
+        }
+
         ClearBackground(LGREEN);
         game.food.draw();
         game.snake.draw();
