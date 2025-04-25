@@ -1,6 +1,7 @@
 #include <raylib.h>
 #include "constants.cpp"
 
+#pragma once
 
 class Food {
 public:

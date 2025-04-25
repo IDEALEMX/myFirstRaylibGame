@@ -3,6 +3,7 @@
 #include <deque>
 
 #include "constants.cpp"
+#pragma once
 
 using namespace std;
 
@@ -130,5 +131,9 @@ public:
             }
         }
         return false;
+    }
+
+    void growBody() {
+        body.push_front(Vector2Add(body[0], direction));
     }
 };

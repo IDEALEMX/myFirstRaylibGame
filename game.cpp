@@ -1,8 +1,6 @@
-#include <raymath.h>
-
+#include <raylib.h>
 #include "snake.cpp"
 #include "food.cpp"
-
 
 #pragma once
 
@@ -40,14 +38,22 @@ public:
         }
     }
 
-    void checkSnakeFoodCollition() {
+    /*
+     * Checks if the snake is touching the food
+     * if it is, it will move the good to a random location
+     * if that happens it will return true
+     */
+
+    bool handleSnakeFoodCollition() {
         Vector2 newPosition;
         if(snake.body[0] == food.position) {
             do {
                 newPosition = food.generateRandomPosition();
             } while (snake.positionInSnake(newPosition));
             food.position = newPosition;
+            return true;
         }
+        return false;
     }
 
 };

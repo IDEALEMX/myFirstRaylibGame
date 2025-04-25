@@ -1,7 +1,5 @@
 #include <raylib.h>
 #include <iostream>
-
-#include "constants.cpp"
 #include "game.cpp"
 
 using namespace std;
@@ -21,10 +19,15 @@ int main() {
 
         // Computing
         game.handleUserInput();
+        game.snake.updateDirection(game.lastDirectionKeyPressed);
         if(game.shouldTriggerUpdate(updateInterval)) {
-            game.checkSnakeFoodCollition();
-            game.snake.updateDirection(game.lastDirectionKeyPressed);
-            game.snake.update();
+            bool ateFood = game.handleSnakeFoodCollition();
+            
+            if (ateFood) {
+                game.snake.growBody();
+            } else {
+                game.snake.update();
+            }
         }
 
         // Drawing
