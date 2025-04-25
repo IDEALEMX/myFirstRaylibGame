@@ -37,12 +37,7 @@ int main() {
             } else {
                 game.snake.update();
             }
-            
             game.snake.checkCollitions();
-        }
-
-        if (game.snake.isDead) {
-            continue;
         }
 
         // Drawing
