@@ -18,11 +18,11 @@ int main() {
     // Gameloop
     while (!WindowShouldClose()) {
         BeginDrawing();
-        
+
         // Computing
-        
         game.handleUserInput();
         if(game.shouldTriggerUpdate(updateInterval)) {
+            game.checkSnakeFoodCollition();
             game.snake.updateDirection(game.lastDirectionKeyPressed);
             game.snake.update();
         }

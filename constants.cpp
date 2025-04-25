@@ -1,5 +1,6 @@
 #include <raylib.h>
 #include <set>
+#include <array>
 
 #pragma once
 

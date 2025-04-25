@@ -1,3 +1,5 @@
+#include <raymath.h>
+
 #include "snake.cpp"
 #include "food.cpp"
 
@@ -35,6 +37,16 @@ public:
         int pressedKey = GetKeyPressed();
         if (validMovementKeys.count(pressedKey)) {
             lastDirectionKeyPressed = pressedKey;
+        }
+    }
+
+    void checkSnakeFoodCollition() {
+        Vector2 newPosition;
+        if(snake.body[0] == food.position) {
+            do {
+                newPosition = food.generateRandomPosition();
+            } while (snake.positionInSnake(newPosition));
+            food.position = newPosition;
         }
     }
 

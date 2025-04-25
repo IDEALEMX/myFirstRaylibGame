@@ -121,4 +121,14 @@ public:
         body.pop_back();
         body.push_front(Vector2Add(body[0], direction));
     }
+
+    // Checks if a given Vector2 position is inside the snake
+    bool positionInSnake(Vector2 position) {
+        for (int i = 0; i < body.size(); i++)  {
+            if (body[i] == position) {
+                return true;
+            }
+        }
+        return false;
+    }
 };
