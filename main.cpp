@@ -10,6 +10,7 @@ using namespace std;
 // Time passed since last game update
 double lastUpdateTime = 0;
 
+// Checks if a certain time interval since the last time it happened
 bool shouldTriggerUpdate(double updateInterval) { 
     double currentTime = GetTime();
     if (currentTime - lastUpdateTime >= updateInterval) {
@@ -17,6 +18,16 @@ bool shouldTriggerUpdate(double updateInterval) {
         return true;
     }
     return false;
+}
+
+int lastDirectionKeyPressed = KEY_RIGHT;
+
+// Will change the last key pressed if it is a valid movement key
+void handleUserInput() {
+    int pressedKey = GetKeyPressed();
+    if (validMovementKeys.count(pressedKey)) {
+        lastDirectionKeyPressed = pressedKey;
+    }
 }
 
 int main() {
@@ -35,8 +46,10 @@ int main() {
         BeginDrawing();
         
         // Computing
-        snake.updateDirection();
-        if(shouldTriggerUpdate(interval)) {
+        
+        handleUserInput();
+        if(shouldTriggerUpdate(updateInterval)) {
+            snake.updateDirection(lastDirectionKeyPressed);
             snake.update();
         }
 

@@ -84,11 +84,12 @@ public:
     /*
      * Updates the direction of the snake
      * supports arrowKey, wasd & vim movement
+     * If a movement change actually takes place it will return true
+     * else it will return false
      */
 
-    void updateDirection() {
-        int keyPressed = GetKeyPressed();
-        switch(keyPressed) {
+    void updateDirection(int lastKeyPressed) {
+        switch(lastKeyPressed) {
             case KEY_UP: case  KEY_W: case KEY_K:
                 if (direction != downVector) {
                     direction = upVector;
